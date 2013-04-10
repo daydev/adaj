@@ -3,7 +3,7 @@ library adaj;
 import "dart:html";
 import "dart:json" as json;
 
-void ajax(String url, {String method: "GET", Map data: null, Function success: null, Function error: null}) {
+void adaj(String url, {String method: "GET", Map data: null, Function success: null, Function error: null}) {
 
   HttpRequest request = new HttpRequest();
 
@@ -29,17 +29,17 @@ void ajax(String url, {String method: "GET", Map data: null, Function success: n
 }
 
 void get(String url, Function success) {
-  ajax(url, success: success);
+  adaj(url, success: success);
 }
 
 void post(String url, Map data, [Function success]) {
-  ajax(url, method: "POST", data: data, success: success);
+  adaj(url, method: "POST", data: data, success: success);
 }
 
 void put(String url, Map data, [Function success]) {
-  ajax(url, method: "PUT", data: data, success: success);
+  adaj(url, method: "PUT", data: data, success: success);
 }
 
 void delete(String url, [Function success]) {
-  ajax(url, method: "DELETE", success: success);
+  adaj(url, method: "DELETE", success: success);
 }
