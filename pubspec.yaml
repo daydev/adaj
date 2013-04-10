@@ -1,0 +1,6 @@
+name: adaj
+version: 0.0.1
+author: Egor Day <edaydev@gmail.com>
+description: 'Primitive utility library for Asynchronous JSON exchange, supporting
+  four major HTTP methods: GET, POST, PUT, DELETE and simple success/errors callbacks'
+homepage: https://github.com/daydev/adaj
