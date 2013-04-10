@@ -3,7 +3,9 @@ library adaj;
 import "dart:html";
 import "dart:json" as json;
 
-void adaj(String url, {String method: "GET", Map data: null, Function success: null, Function error: null}) {
+typedef void RequestCallback(Map data);
+
+void adaj(String url, {String method: "GET", Map data: null, RequestCallback success: null, Function error: null}) {
 
   HttpRequest request = new HttpRequest();
 
@@ -11,8 +13,8 @@ void adaj(String url, {String method: "GET", Map data: null, Function success: n
   if (success != null) {
     request.onLoad.listen((event) {
       if ((request.status - 200) < 100) {
-        print(request.status);
-        success(request.responseText);
+        Map jsonData = request.responseText.isEmpty ? {} : json.parse(request.responseText);
+        success(jsonData);
       } else if (error != null) {
         error();
       }
@@ -28,18 +30,18 @@ void adaj(String url, {String method: "GET", Map data: null, Function success: n
 
 }
 
-void get(String url, Function success) {
-  adaj(url, success: success);
+void get(String url, RequestCallback success, [Function error]) {
+  adaj(url, success: success, error: error);
 }
 
-void post(String url, Map data, [Function success]) {
-  adaj(url, method: "POST", data: data, success: success);
+void post(String url, Map data, [RequestCallback success, Function error]) {
+  adaj(url, method: "POST", data: data, success: success, error: error);
 }
 
-void put(String url, Map data, [Function success]) {
-  adaj(url, method: "PUT", data: data, success: success);
+void put(String url, Map data, [RequestCallback success, Function error]) {
+  adaj(url, method: "PUT", data: data, success: success, error: error);
 }
 
-void delete(String url, [Function success]) {
-  adaj(url, method: "DELETE", success: success);
+void delete(String url, [RequestCallback success, Function error]) {
+  adaj(url, method: "DELETE", success: success, error: error);
 }
