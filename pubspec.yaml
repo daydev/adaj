@@ -1,6 +1,8 @@
 name: adaj
-version: 0.0.6
+version: 0.1.0
 author: Egor Day <edaydev@gmail.com>
-description: 'Primitive utility library for Asynchronous JSON exchange, supporting
-  four major HTTP methods: GET, POST, PUT, DELETE and simple success/errors callbacks'
+description: Primitive utility for asynchronous JSON requests with Dart. Sending JSON data is supported, as well, as simple success/error/always callbacks
 homepage: https://github.com/daydev/adaj
+dependencies:
+  browser: any
+  unittest: 0.5.20
