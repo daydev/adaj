@@ -1,5 +1,5 @@
 name: adaj
-version: 0.1.0
+version: 0.1.1
 author: Egor Day <edaydev@gmail.com>
 description: Primitive utility for asynchronous JSON requests with Dart. Sending JSON data is supported, as well, as simple success/error/always callbacks
 homepage: https://github.com/daydev/adaj
