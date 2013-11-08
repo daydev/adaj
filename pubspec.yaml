@@ -5,4 +5,4 @@ description: Primitive utility for asynchronous JSON requests with Dart. Sending
 homepage: https://github.com/daydev/adaj
 dependencies:
   browser: any
-  unittest: 0.5.20
+  unittest: 0.8.10
