@@ -1,7 +1,7 @@
 library adaj;
 
 import "dart:html";
-import "dart:json" as json;
+import "dart:convert" show JSON;
 
 typedef void RequestCallback(var data);
 
@@ -26,17 +26,17 @@ Ajax delete(String url) {
 }
 
 class Ajax {
-  
+
   static const String JsonType = "application/json";
-  
+
   final String url;
   final String method;
   final Map data;
   final List<RequestCallback> _succesCallbacks = [];
   final List<RequestCallback> _errorCallbacks = [];
-  
+
   Ajax(this.url, this.method, this.data);
-  
+
   void go() {
     HttpRequest request = new HttpRequest();
 
@@ -44,7 +44,7 @@ class Ajax {
     request.onLoad.listen((event) {
         if (request.status < 400) {
           try {
-            Map result = request.responseText.isEmpty ? {} : json.parse(request.responseText);
+            Map result = request.responseText.isEmpty ? {} : JSON.decode(request.responseText);
             _executeSuccess(result);
           } catch (e) {
             _executeError(request.responseText);
@@ -53,40 +53,40 @@ class Ajax {
           _executeError(request.responseText);
         }
       });
-    
+
     request.setRequestHeader("Accept", JsonType);
 
     if (data != null) {
       request.setRequestHeader("Content-Type", JsonType);
-      request.send(json.stringify(data));
+      request.send(JSON.encode(data));
     } else {
       request.send();
     }
-  }  
-  
+  }
+
   Ajax done(RequestCallback callback) {
     _succesCallbacks.add(callback);
     return this;
   }
-  
+
   Ajax fail(RequestCallback callback) {
     _errorCallbacks.add(callback);
     return this;
   }
-  
+
   Ajax always(RequestCallback callback) {
     _succesCallbacks.add(callback);
     _errorCallbacks.add(callback);
     return this;
   }
-  
+
   void _executeSuccess(data) {
     _succesCallbacks.forEach((callback) => callback(data));
   }
-  
+
   void _executeError(responseText) {
     _errorCallbacks.forEach((callback) => callback(responseText));
   }
-  
-}  
-  
+
+}
+
